@@ -1,27 +1,27 @@
 import React, {useState, useEffect} from 'react';
 import Layout from './Layout';
+
 import Joke from './Joke';
 import './App.css';
 
 
 const App = () =>{
-  const [isLoaded, setLoading] = useState(false);
+  const [isLoaded, setLoading] = useState(null);
   const [jokes, setJokes] = useState([]);
 
-
-  useEffect(()=>{
-    fetch('https://official-joke-api.appspot.com/jokes/programming/random')
-    .then(response=>response.json())
-    .then( data => {
-      setLoading(true);
-      setJokes(data);
-      })
-    .catch(console.log);
-    setLoading(false);
-  }, []);
+  const getJoke = async () =>{
+   await fetch('https://official-joke-api.appspot.com/jokes/programming/random')
+   .then(response=>response.json())
+   .then( data => {
+     setLoading(true);
+     setJokes(data);
+     })
+     .catch(console.log);
+  }
 
   return (
         <Layout>
+        <button className="btn btn-secondary" onClick={getJoke}>Generate</button>
         <Joke loading={isLoaded} jokes={jokes}/>
         </Layout>
   );

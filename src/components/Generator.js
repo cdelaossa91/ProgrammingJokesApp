@@ -1,15 +1,13 @@
-import React, {useState} from 'react';
-import Joke from './Joke';
+import React from 'react';
 
-const Generator = () =>{
-   const [generate, setGenerate] = useState(null);
-    
-    const handleShow = (event) =>{
-     setGenerate(true);
+
+const Generator = (props) =>{
+    const handleShow = () =>{
+        props.generate()
     }
-    
+
     return (
-         <button className="btn btn-secondary" onClick={handleShow}>Generate</button>
+         <button className="btn btn-secondary">Generate</button>
            );
   }
 

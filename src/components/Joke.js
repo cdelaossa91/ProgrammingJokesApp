@@ -1,10 +1,9 @@
 import React from 'react';
 
-
 const Joke = ({loading, jokes}) => {
-      if(!loading){
-          return <div className="container my-5">Loading...</div>;
-        }else {
+      if(loading==null){
+        return <div className="container my-5" style={{visibility: 'hidden', paddingTop:50 }}>Click the button to generate a joke</div>;
+      }else {
           return(
           <ul className="my-5 list-unstyled lead">
             {jokes.map(joke =>(
