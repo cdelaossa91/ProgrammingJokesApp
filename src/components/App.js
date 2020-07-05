@@ -1,22 +1,31 @@
-import React from 'react';
-import Generator from './Generator';
+import React, {useState, useEffect} from 'react';
+import Layout from './Layout';
+import Joke from './Joke';
 import './App.css';
 
 
-function Wrapper(){
+const App = () =>{
+  const [isLoaded, setLoading] = useState(false);
+  const [jokes, setJokes] = useState([]);
+
+
+  useEffect(()=>{
+    fetch('https://official-joke-api.appspot.com/jokes/programming/random')
+    .then(response=>response.json())
+    .then( data => {
+      setLoading(true);
+      setJokes(data);
+      })
+    .catch(console.log);
+    setLoading(false);
+  }, []);
+
   return (
-    <div className="container mx-auto my-4 p-5 bg-dark text-white text-center" id="mainWrapper">
-      <h1 className="display-4 mb-4">Programming Jokes Generator</h1>
-       <img src={require('../images/lolmeme.png')} alt="meme" width="150px"></img>
-       <div className="container my-5">
-       <Generator/>
-       </div>
-      
-    </div>
+        <Layout>
+        <Joke loading={isLoaded} jokes={jokes}/>
+        </Layout>
   );
 
 }
 
-
-
-export default Wrapper;
+export default App;
